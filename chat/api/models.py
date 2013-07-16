@@ -20,11 +20,29 @@ class Message(models.Model):
 
 class Buddies(models.Manager):
 
-    def add_buddy(user, username):
-        raise NotImplementedError
+    def already_added(self, user, buddy):
+        buddylist = self.objects.get(user=user)
+        return buddylist.objects.filter(buddy=buddy)
+
+    def add_buddy(self, user, username):
+        try:
+            buddy = User.objects.get(username=username)
+            if already_added(user, buddy):
+                return
+            buddylist = BuddyList(user, buddy)
+            buddylist.save()
+            return True
+        except DoesNotExist:
+            return False
+
+    def get_user_buddies(self, user):
+        return self.objects.filter(user=user)
 
 
 class BuddyList(models.Model):
     """represents a user's buddy list"""
     user = models.OneToOneField(User)
     buddy = models.ForeignKey(User, related_name='buddy')
+
+    objects = models.Manager()
+    buddies = Buddies()
