@@ -16,3 +16,15 @@ class Message(models.Model):
 
     objects = models.Manager()
     messages = Messages()
+
+
+class Buddies(models.Manager):
+
+    def add_buddy(user, username):
+        raise NotImplementedError
+
+
+class BuddyList(models.Model):
+    """represents a user's buddy list"""
+    user = models.OneToOneField(User)
+    buddy = models.ForeignKey(User, related_name='buddy')
