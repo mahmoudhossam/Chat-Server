@@ -2,6 +2,7 @@ Django==1.6b1
 South==0.8.1
 distribute==0.6.34
 dj-database-url==0.2.1
+djangorestframework==2.3.6
 pathlib==0.8
 psycopg2==2.5.1
 wsgiref==0.1.2
